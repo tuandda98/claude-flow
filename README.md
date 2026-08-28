@@ -36,19 +36,35 @@ Mở phiên mới là mất sạch — trừ những gì đã nằm trên đĩa 
 
 ## Cài (mỗi máy một lần)
 
+Repo này **public** nên không cần clone, cũng không cần đăng nhập GitHub:
+
 ```bash
-git clone <url repo này> ~/projects/claude-flow
+claude plugin marketplace add tuandda98/claude-flow
+claude plugin install flow@claude-flow --scope user
+```
+
+`--scope user` = dùng cho **mọi** project trên máy đó, kể cả project chưa tồn tại.
+
+Cập nhật về sau: `claude plugin marketplace update claude-flow`.
+
+### Máy bạn NGỒI SỬA bộ này thì khai kiểu khác
+
+Máy tác giả nên trỏ marketplace vào **thư mục trên đĩa**, không trỏ vào GitHub:
+
+```bash
+git clone https://github.com/tuandda98/claude-flow ~/projects/claude-flow
 bash ~/projects/claude-flow/setup-may-moi.sh
 ```
 
-Script đó kiểm công cụ bắt buộc, đăng ký marketplace, cài plugin ở **scope user** (dùng cho mọi
-project), rồi in ra danh sách thứ **phải chuyển tay** — khoá git-crypt, SSH key, toolchain. Nó
-cố ý không tự đụng vào khoá bí mật.
+Nguồn `directory` đọc thẳng file trên đĩa → sửa `roles.md` hay thêm lệnh là có hiệu lực ngay
+(`/reload-plugins`). Trỏ vào GitHub thì mỗi lần sửa phải commit → push → `marketplace update`
+mới thấy, tức là mỗi vòng thử nghiệm mất ba bước thừa.
 
-Làm tay nếu muốn: `/plugin marketplace add ~/projects/claude-flow` rồi
-`/plugin install flow@claude-flow`.
+Hai máy khai hai kiểu là **chủ ý**, không phải quên đồng bộ.
 
-Cập nhật về sau: `git pull` trong repo này rồi `/reload-plugins`.
+`setup-may-moi.sh` lo phần **cấp máy**: kiểm công cụ bắt buộc, đăng ký marketplace, cài plugin
+scope user, rồi in ra danh sách thứ **phải chuyển tay** — khoá git-crypt, SSH key, toolchain,
+đăng nhập lại CLI. Nó cố ý không tự đụng vào khoá bí mật.
 
 ## Ba lớp phải mang sang máy khác — ba đường khác nhau
 
@@ -56,7 +72,7 @@ Nhầm lớp là chỗ mất thời gian nhất khi đổi máy:
 
 | Lớp | Đi bằng gì | Làm gì ở máy mới |
 |---|---|---|
-| **Bộ quy trình** (plugin này) | git — repo này | `setup-may-moi.sh`, **1 lần cho cả máy** |
+| **Bộ quy trình** (plugin này) | git — repo này | `marketplace add tuandda98/claude-flow`, **1 lần cho cả máy** |
 | **Project** (code + `project/` + `.claude/flow.json`) | git — repo của project | `git clone` rồi `/flow:dau-ca`. Repo chưa bật bộ này → `/flow:khoi-tao` |
 | **Secret & toolchain** | **KHÔNG đi bằng gì cả** | Chuyển tay: khoá git-crypt, SSH key, đăng nhập lại CLI |
 
