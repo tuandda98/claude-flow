@@ -1,0 +1,8 @@
+{
+  "name": "flow",
+  "description": "Quy trình làm việc với Claude: 4 vai (PO/Designer/Dev/Tester) + bộ nhớ dự án project/ + nhật ký tự động + đồng bộ 2 máy + cổng chất lượng. Chạy /flow:khoi-tao trong repo mới để bật.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Đỗ Đào Anh Tuấn"
+  }
+}
