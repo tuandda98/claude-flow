@@ -32,8 +32,17 @@ thì sửa lại flow.json **bây giờ**, đừng để lần Stop đầu tiên
 
 ## 3. Dựng `project/`
 
-Copy từ `${CLAUDE_PLUGIN_ROOT}/mau/`: `README.md` (luật chơi + Definition of Done),
-`ROADMAP.md`, `roles.md`, `_templates/` (5 khuôn feature). Rồi **sửa lại cho khớp repo này**:
+Copy theo đúng bảng này (nguồn ở `${CLAUDE_PLUGIN_ROOT}/mau/`):
+
+| Nguồn | Đích trong repo |
+|---|---|
+| `mau/flow.json` | `.claude/flow.json` *(bước 2 — xoá hết key `_` chú thích sau khi điền)* |
+| `mau/README.md` | `project/README.md` |
+| `mau/ROADMAP.md` | `project/ROADMAP.md` |
+| `mau/roles.md` | `project/roles.md` |
+| `mau/_templates/*` | `project/_templates/*` |
+
+Rồi **sửa lại cho khớp repo này**:
 
 - `roles.md` — thay phần persona Dev + **catalog rủi ro Tester** bằng thứ đúng với dự án
   (khuôn mẫu chỉ là chỗ trống có gợi ý). Đây là file mang KIẾN THỨC RIÊNG của dự án; các lệnh
