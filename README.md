@@ -37,17 +37,36 @@ Mở phiên mới là mất sạch — trừ những gì đã nằm trên đĩa 
 ## Cài (mỗi máy một lần)
 
 ```bash
-git clone <url repo này> ~/projects/claude-flow     # máy mới
+git clone <url repo này> ~/projects/claude-flow
+bash ~/projects/claude-flow/setup-may-moi.sh
 ```
 
-Trong Claude Code:
+Script đó kiểm công cụ bắt buộc, đăng ký marketplace, cài plugin ở **scope user** (dùng cho mọi
+project), rồi in ra danh sách thứ **phải chuyển tay** — khoá git-crypt, SSH key, toolchain. Nó
+cố ý không tự đụng vào khoá bí mật.
 
-```
-/plugin marketplace add ~/projects/claude-flow
-/plugin install flow@claude-flow
-```
+Làm tay nếu muốn: `/plugin marketplace add ~/projects/claude-flow` rồi
+`/plugin install flow@claude-flow`.
 
 Cập nhật về sau: `git pull` trong repo này rồi `/reload-plugins`.
+
+## Ba lớp phải mang sang máy khác — ba đường khác nhau
+
+Nhầm lớp là chỗ mất thời gian nhất khi đổi máy:
+
+| Lớp | Đi bằng gì | Làm gì ở máy mới |
+|---|---|---|
+| **Bộ quy trình** (plugin này) | git — repo này | `setup-may-moi.sh`, **1 lần cho cả máy** |
+| **Project** (code + `project/` + `.claude/flow.json`) | git — repo của project | `git clone` rồi `/flow:dau-ca`. Repo chưa bật bộ này → `/flow:khoi-tao` |
+| **Secret & toolchain** | **KHÔNG đi bằng gì cả** | Chuyển tay: khoá git-crypt, SSH key, đăng nhập lại CLI |
+
+⚠️ Lớp 3 là lớp duy nhất không tự động hoá được, và cũng là lớp làm hỏng ngày làm việc nếu
+quên. Khai nó vào `ngoaiGit` trong `.claude/flow.json` của từng project để `/flow:dau-ca` tự
+nhắc — đừng trông vào trí nhớ.
+
+⚠️ **Project chưa có remote git thì không tồn tại ở máy nào khác.** Nghe hiển nhiên, nhưng đây
+là cách mất việc phổ biến nhất khi làm hai máy. Kiểm nhanh toàn bộ:
+`for p in ~/projects/*/; do printf "%-24s " "$(basename $p)"; git -C "$p" remote get-url origin 2>/dev/null || echo "(KHÔNG có remote)"; done`
 
 ## Dùng cho một project
 
