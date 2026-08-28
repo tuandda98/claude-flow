@@ -1,0 +1,15 @@
+{
+  "name": "claude-flow",
+  "description": "Bộ quy trình làm việc với Claude dùng chung cho mọi dự án của Tuấn",
+  "owner": {
+    "name": "Đỗ Đào Anh Tuấn"
+  },
+  "plugins": [
+    {
+      "name": "flow",
+      "source": "./plugins/flow",
+      "description": "Quy trình 4 vai + bộ nhớ dự án + nhật ký tự động + đồng bộ 2 máy + cổng chất lượng",
+      "version": "1.0.0"
+    }
+  ]
+}

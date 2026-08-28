@@ -1,0 +1,46 @@
+{
+  "description": "Quy trình 4 vai + nhật ký tự động + đồng bộ 2 máy + cổng chất lượng. Mọi hook tự thoát êm nếu project không có .claude/flow.json (tức chưa chạy /flow:khoi-tao).",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/ghi-nhat-ky.sh\"",
+            "timeout": 15
+          },
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/dau-phien.sh\"",
+            "timeout": 45,
+            "statusMessage": "Đồng bộ git + nạp ngữ cảnh phiên trước…"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/ghi-nhat-ky.sh\"",
+            "timeout": 15
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/cong-chat-luong.sh\"",
+            "timeout": 600
+          }
+        ]
+      }
+    ]
+  }
+}

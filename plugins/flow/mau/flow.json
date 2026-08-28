@@ -1,0 +1,52 @@
+{
+  "_chuThich": "Cấu hình bộ quy trình `flow` cho repo này. Đây là file DUY NHẤT các hook đọc — không có nó thì mọi hook tự thoát êm (project chưa bật bộ này). JSON thuần, KHÔNG comment được: giải thích từng field ở README của plugin.",
+
+  "ten": "<Tên dự án>",
+
+  "gate": {
+    "_": "Lệnh chạy trước khi Claude kết thúc lượt, CHỈ khi file trong `duong` thật sự đổi. Chỉ khai lệnh NHANH (giây tới ~1 phút). Test nặng/e2e/build để /flow:done gọi — nhét vào đây là mỗi lần dừng lượt phải chờ, bộ này thành gánh nặng. Để mảng rỗng = tắt cổng.",
+    "lenh": ["npx tsc --noEmit", "npm run lint"],
+    "duong": ["src", "scripts", "package.json", "tsconfig.json"]
+  },
+
+  "nhatky": {
+    "_": "Nhật ký TỰ ĐỘNG: mốc mở phiên + từng câu chủ dự án nhắn. File này ĐƯỢC COMMIT — đó là cách máy kia biết máy này vừa nhờ làm gì.",
+    "bat": true,
+    "file": "project/USER_HISTORY.md"
+  },
+
+  "ngucanh": {
+    "_": "Đầu phiên tự nạp vào context: N câu vừa nhờ + việc đang dở trong ROADMAP + git log. Không có nó thì mỗi phiên mới lại hỏi lại thứ đã trả lời.",
+    "bat": true,
+    "soCau": 30
+  },
+
+  "git": {
+    "_": "tuPull: đầu phiên tự `pull --ff-only` khi đứng sau origin VÀ cây sạch VÀ không diverge. choPush/choCommit: Claude được tự commit/push không. nhanhLamViec: nhánh mặc định của dự án.",
+    "tuPull": true,
+    "choCommit": true,
+    "choPush": true,
+    "nhanhLamViec": "main"
+  },
+
+  "tailieu": {
+    "_": "Trỏ tới tài liệu thật của repo. Bỏ trống field nào chưa có. `luat` là nguồn THẮNG mọi mâu thuẫn.",
+    "luat": "",
+    "quyuoc": "",
+    "nhatkyPhien": ""
+  },
+
+  "ngoaiGit": {
+    "_": "Thứ KHÔNG đi theo git mà máy kia sẽ thiếu — /flow:dau-ca kiểm riêng những mục này. Đây là chỗ hay cắn nhất khi làm 2 máy.",
+    "muc": [
+      "file env/secret (đã unlock chưa? đang trỏ DB dev hay prod?)",
+      "migration đã áp lên DB chưa",
+      "SSH key / khoá git-crypt"
+    ]
+  },
+
+  "camKy": {
+    "_": "Việc Claude TUYỆT ĐỐI không tự làm ở repo này. Liệt kê cụ thể, đừng chung chung.",
+    "muc": ["deploy production", "chạy lệnh xoá dữ liệu trên DB thật"]
+  }
+}
